@@ -7,12 +7,13 @@ var cors = require('cors')
 
 const mongoose = require('mongoose');
 
+const uri = "mongodb+srv://WiredApp:AsI1999@cluster0.mqqjv.mongodb.net/Wired?retryWrites=true&w=majority";
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var jobRouter = require('./routes/jobRouter');
 
-const connect = mongoose.connect(' mongodb://127.0.0.1:27017/Wired', {useNewUrlParser: true, useUnifiedTopology: true})
+const connect = mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
 
 connect.then((db)=>{
 	console.log('Connected to the db')
