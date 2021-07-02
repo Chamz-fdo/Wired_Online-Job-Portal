@@ -1,1 +1,1 @@
-const baseUrl = 'https://wired-backend.herokuapp.com/'
+export const baseUrl = 'https://wired-backend.herokuapp.com/'
