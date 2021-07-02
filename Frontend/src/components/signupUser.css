@@ -1,0 +1,43 @@
+h2{
+    text-align: center;
+}
+
+form{
+    width: 500px;
+    background-color: white;
+    margin-left: 400px; 
+    
+}
+
+.pd{
+    margin-top: 0;
+}
+
+.su{
+    margin-top: 70px;
+}
+
+
+
+
+Button{
+    margin-left: 150px;
+    width: 150px;
+    margin-top: 20px;
+}
+
+#cacc{
+    margin-left: 150px;
+}
+
+.crj{
+    margin-top: 70px;
+}
+
+.abc{
+    margin-top: 70px;
+}
+
+#zxy{
+    margin-left: 150px;
+}
