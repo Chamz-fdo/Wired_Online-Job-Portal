@@ -39,7 +39,7 @@ function CreateJob(props){
 
       let formD = new FormData()
       formD.append('job', newData)
-      fetch(baseUrl +'Wired/jobs', {
+      fetch(baseUrl +'Wired/jobs/getAll', {
           method: 'POST',
           body: formD
       })
