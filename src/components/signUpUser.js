@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom'
 import './signupUser.css';
 import {Form,Button} from 'react-bootstrap';
 
-import {baseUrl} from './baseUrl'
+import {baseUrl} from './../baseUrl'
 
 function SignupUser(){
 

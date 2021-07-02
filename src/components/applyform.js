@@ -4,7 +4,7 @@ import './userprofile.css';
 import UserHeader from './userheader';
 import {useHistory, useLocation} from 'react-router-dom'
 
-import {baseUrl} from './baseUrl'
+import {baseUrl} from './../baseUrl'
 
 function Post({selectedJob}){
 

@@ -9,7 +9,7 @@ import Footer from './footer';
 
 import UserHeader from './userheader';
 import Applicants from './applicants';
-import {baseUrl} from './baseUrl'
+import {baseUrl} from './../baseUrl'
 
 const columns = [
     {

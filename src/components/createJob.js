@@ -6,7 +6,7 @@ import authContext from './../context/authContext'
 import UserHeader from './userheader';
 import moment from 'moment';
 
-import {baseUrl} from './baseUrl'
+import {baseUrl} from './../baseUrl'
 
 function CreateJob(props){
 
