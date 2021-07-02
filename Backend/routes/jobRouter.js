@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 var multer  = require('multer')
 var fs = require('fs-extra');
 
-const baseUrl = 'http://localhost:3001'
+const baseUrl = 'https://wiredapp.herokuapp.com'
 
 var storage = multer.diskStorage({   
    destination: function(req, file, cb) { 
