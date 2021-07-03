@@ -8,7 +8,7 @@ import Loading from './Loading'
 
 function SignIn(){
 
-    const [isLoading, setIsLoading] = useState(true);    
+    const [isLoading, setIsLoading] = useState(false);    
     const [isError, setIsError] = useState(false);    
 
     const history = useHistory();
