@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch , Redirect} from "react-router-dom";
+
 import SignupUser from './components/signUpUser';
 import SignIn from './components/signIn';
 import UserProfile from './components/UserProfile';
@@ -9,13 +10,13 @@ import JoinMeeting from './components/joinMeeting';
 import CreateAcc from './components/createacc';
 import CreateJob from './components/createJob';
 import Apply from './components/applyform'; 
-import CompanyPublic from './components/companypublic';
 import Plans from './components/premium';
 import PaymentDetails from './components/paymentdetails';
 import UserHeader from './components/userheader';
 import FrontPage from './components/frontpage';
 import Jobsearch from './components/searchjobs';
 import Footer from './components/footer';
+import Aboutus from './components/aboutus';
 
 import authContext from './context/authContext'
 
@@ -23,6 +24,8 @@ import {baseUrl} from './baseUrl'
 
 function App() {
 
+  const [isLoading, setIsLoading] = useState(true);
+  
   const [token, setToken] = useState(null);
   const [accType, setAccType] = useState(null)
   const [companyName, setCompanyName] = useState(null)
@@ -127,10 +130,10 @@ function App() {
               <Route path="/userprofile">
                 <div>
                   <UserHeader searchVal={searchVal} onChangeHandler={onChangeHandler}/>
-                  <UserProfile selectedJob={setSelectedJobDetails} jobDetails={jobDetails.length ? jobDetails.filter((item)=> item.jobTitle.toLowerCase().includes(searchVal.toLowerCase()) || item.companyName.toLowerCase().includes(searchVal.toLowerCase())) : null }/>
-                  <div style={{clear:'both'}}>
-                  <Footer/>
-                </div>
+                  <UserProfile searchVal={searchVal} onChangeHandler={onChangeHandler} selectedJob={setSelectedJobDetails} jobDetails={jobDetails.length ? jobDetails.filter((item)=> item.jobTitle.toLowerCase().includes(searchVal.toLowerCase()) || item.companyName.toLowerCase().includes(searchVal.toLowerCase())) : null }/>
+                  <div style={{clear:'both',position:"fix", bottom:"0px"}}>
+                    <Footer/>
+                  </div>
                 </div>
               </Route>
             :
@@ -154,11 +157,11 @@ function App() {
             <Route exact path="/" component={FrontPage} />
             <Route path="/JoinMeeting" component={JoinMeeting} />
             <Route path="/Apply/:jobId" component={({match})=><Apply id={match.params.jobId} selectedJob={selectedJobDetails}/>}/>
-            <Route path="/CompanyPublic" component={()=> <CompanyPublic searchVal={searchVal} onChangeHandler={onChangeHandler} jobDetails={jobDetails.length ? jobDetails.filter((item)=> item.jobTitle.includes(searchVal)) : null }/>} />
             <Route path="/Jobsearch" >
-              <Jobsearch searchVal={searchVal2} onChangeHandler={onChangeHandler2} jobDetails={jobDetails.length ? jobDetails.filter((item)=> item.jobTitle.toLowerCase().includes(searchVal2.toLowerCase()) || item.companyName.toLowerCase().includes(searchVal2.toLowerCase())) : [] }/>
+              <Jobsearch guest={false}/>
+              <Footer/>              
             </Route>  
-            
+            <Route path='/aboutus' component={Aboutus} />             
             {accType == 1 ?   
                 <Redirect to='/userprofile'/>
                 
@@ -183,7 +186,11 @@ function App() {
             <Route path="/CreateAcc" component={()=> <CreateAcc setIsChanged={setIsChanged} />} />
             <Route path="/Plans" component={Plans} />
             <Route path="/PaymentDetails" component={PaymentDetails} /> 
-            <Route path="/Jobsearch"  component={()=> <Jobsearch searchVal={searchVal2} onChangeHandler={onChangeHandler2} jobDetails={jobDetails.length ? jobDetails.filter((item)=> item.jobTitle.toLowerCase().includes(searchVal2.toLowerCase()) || item.companyName.toLowerCase().includes(searchVal2.toLowerCase())) : [] }/>}/>  
+            <Route path="/Jobsearch">  
+              <Jobsearch guest={true} />
+              <Footer/>
+            </Route>
+            <Route path='/aboutus' component={Aboutus} />             
             <Redirect to='/'/>            
         </Switch>
     )
@@ -196,7 +203,7 @@ function App() {
       companyName: companyName,
       companyEmail: companyEmail,
       login: login,
-      logout: logout
+      logout: logout,
     }}>
       <div>
         <BrowserRouter>

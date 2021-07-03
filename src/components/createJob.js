@@ -1,5 +1,4 @@
 import React, {useState, useContext} from 'react';
-import './signupUser.css';
 import {useHistory} from 'react-router-dom'
 import {Form,Button} from 'react-bootstrap';
 import authContext from './../context/authContext'
@@ -56,7 +55,8 @@ function CreateJob(props){
    return(
        <div>
        <UserHeader/>
-       <Form className="shadow p-3 mb-5 bg-white rounded crj" noValidate validated={validated} onSubmit={handleSubmit}>
+        <div className='signup-form-container'>       
+       <Form className="shadow signup-form create-job-form bg-white rounded" noValidate validated={validated} onSubmit={handleSubmit}>
            <h2>Create Job Post</h2>
            <Form.Group controlId="formtitle">
                <Form.Label>Job Title</Form.Label>
@@ -96,11 +96,14 @@ function CreateJob(props){
                <Form.Control type="text" placeholder="search tags"/>
             </Form.Group>
 
-            <Button type="submit" id="cacc" >
+            <div className='signup-btn-grp'>            
+            <Button type="submit">
                 Create Job Post
             </Button>
+            </div>
 
        </Form>
+       </div>
        </div>
 
 

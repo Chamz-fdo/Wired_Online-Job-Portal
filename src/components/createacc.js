@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom'
-import './signupUser.css';
 import {Form,Button} from 'react-bootstrap';
 
 import {baseUrl} from './../baseUrl'
+import Loading from './Loading'
 
 function CreateAcc(){
+    const [isLoading, setIsLoading] = useState(false);    
+    const [isError, setIsError] = useState(false);    
   
     const history = useHistory();
     const [validated, setValidated] = useState(false);
@@ -20,6 +22,7 @@ function CreateAcc(){
         setValidated(true);
       }
       else{
+        setIsLoading(true)
         let userData = {};
         userData.email = form.email.value;
         userData.password = form.password.value;
@@ -36,16 +39,27 @@ function CreateAcc(){
           .then((data) => data.json())
           .then((data)=>{
               history.push('/signin')
+              setIsLoading(false)
             })
           .catch((Err)=> {
-            console.log(Err)
+            window.scrollTo(0,0)
+            setIsLoading(false)
             setValidated(true);
+            setIsError(true)
+            
           })
         }
       };
 
    return(
-       <Form className="su shadow p-3 mb-5 bg-white rounded" noValidate validated={validated} onSubmit={handleSubmit}>
+      <div className='signup-form-container'>
+      {isError ? 
+          <div className='shadow signin-form-error bg-white rounded'>
+            Your Organization's Email is already Exists      
+          </div>
+        :''}
+      {isLoading ? <Loading/> : ''}        
+       <Form className={isError ? "border-radius-0 shadow bg-white rounded signup-form" : "shadow bg-white rounded signup-form"} noValidate validated={validated} onSubmit={handleSubmit}>
            <h2>Sign Up</h2>
            <Form.Group controlId="formcname">
                <Form.Label>Organization Name</Form.Label>
@@ -91,12 +105,13 @@ function CreateAcc(){
                 
             </Form.Group>
 
-            <Button type="submit" id="cacc">
-                Sign Up
-            </Button>
-
+            <div className='signup-btn-grp'>
+              <Button type="submit" id="cacc">
+                  Sign Up
+              </Button>
+            </div>
        </Form>
-
+       </div>
 
    );
         

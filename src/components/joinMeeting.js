@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import './singIn.css';
 import {Form,Button} from 'react-bootstrap';
 import UserHeader from './userheader';
 

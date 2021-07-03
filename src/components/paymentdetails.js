@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import './signupUser.css';
 import {Form,Button} from 'react-bootstrap';
 
 function PaymentDetails(){
@@ -17,7 +16,8 @@ function PaymentDetails(){
 
     return(
         <div>
-        <Form className="su shadow p-3 mb-5 bg-white rounded" noValidate validated={validated} onSubmit={handleSubmit}>
+        <div className='signup-form-container'>
+        <Form className="shadow signup-form bg-white rounded" noValidate validated={validated} onSubmit={handleSubmit}>
            <h2>Sign Up</h2>
            <Form.Group controlId="formcname">
                <Form.Label>Organization Name</Form.Label>
@@ -64,7 +64,7 @@ function PaymentDetails(){
             </Form.Group>
        </Form>
 
-        <Form className="pd shadow p-3 mb-5 bg-white rounded" noValidate validated={validated} onSubmit={handleSubmit}>
+        <Form className="shadow signup-form bg-white rounded" noValidate validated={validated} onSubmit={handleSubmit}>
            <h2>Payment Details</h2>
            <Form.Group controlId="formname">
                <Form.Label>Name on Card</Form.Label>
@@ -98,11 +98,14 @@ function PaymentDetails(){
                 </Form.Control.Feedback>
             </Form.Group>
 
+            <div className='signup-btn-grp'>
             <Button type="submit" id="cacc">
                 Pay Now
             </Button>
+            </div>
 
        </Form>
+       </div>
        </div>
 
     );

@@ -16,10 +16,10 @@ function FrontPage(){
     return(
         <div>
        
-        <Navbar className="nvbb">
+        <Navbar className="front-page-navbar">
         <Navbar.Brand href="#home"></Navbar.Brand>
           
-        <Nav className="mr-auto inup">
+        <Nav className="btn-grp-front">
             <Link to="/Jobsearch"><Button id="js" variant="outline-primary"><SearchIcon/>Search Jobs</Button> </Link> 
             
             {AuthContext.token === null ? 
@@ -34,15 +34,19 @@ function FrontPage(){
                 <Link to="/signIn"><Button id="si" variant="outline-primary">Sign In</Button> </Link>     
             }
 
-            <DropdownButton id="dropdown" variant="outline-primary" size="sm" title="Sign Up">
-                <Dropdown.Item ><Link to="/Plans" className="dd">Organization</Link></Dropdown.Item>
-                <Dropdown.Item><Link to="/SignUp" className="dd">Job Seeker</Link></Dropdown.Item>  
-            </DropdownButton>          
+            {AuthContext.token === null ? 
+                <DropdownButton id="dropdown" variant="outline-primary" size="sm" title="Sign Up">
+                    <Dropdown.Item ><Link to="/Plans" className="dd">Organization</Link></Dropdown.Item>
+                    <Dropdown.Item><Link to="/SignUp" className="dd">Job Seeker</Link></Dropdown.Item>  
+                </DropdownButton>  
+            :''}        
         </Nav>
         
         </Navbar>  
         <body>
-        <img id="logo" src={logo} alt="Logo" />
+            <div className='frontpage-body'>
+                <img id="logo" src={logo} alt="Logo" />
+            </div>
         </body>
       </div> 
 

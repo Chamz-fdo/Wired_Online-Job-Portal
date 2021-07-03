@@ -5,11 +5,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Link } from 'react-router-dom';
 import authContext from './../context/authContext'
 import moment from 'moment';
-import Footer from './footer';
+import {useLocation} from 'react-router-dom';
 
+import Footer from './footer';
+import Jobs from './jobs'
 import UserHeader from './userheader';
 import Applicants from './applicants';
 import {baseUrl} from './../baseUrl'
+import Loading from './Loading'
 
 const columns = [
     {
@@ -74,6 +77,9 @@ function Interviews(){
 
 function CompanyPrivate(props){
 
+    const [isLoading, setIsLoading] = useState(true);    
+
+    const location = useLocation();
     const AuthContext = useContext(authContext)
     const [jobs, setJobs] = useState([])
     const [searchVal , seTSearchVal] = useState('')
@@ -82,12 +88,14 @@ function CompanyPrivate(props){
 
     useEffect(()=>{
         if(!jobs.length){
+            setIsLoading(true)            
             RefreshJobs()
         }
     })
 
     useEffect(()=>{
         if(props.isChanged){
+            setIsLoading(true)
             RefreshJobs()
             props.setIsChanged(false)                    
         }
@@ -108,62 +116,31 @@ function CompanyPrivate(props){
               })
               .then((data)=>data.json())
               .then((data)=>{
-                  setJobs(data)})
+                  setJobs(data)
+                  setIsLoading(false)                  
+              })
               .catch((err)=> {console.log(err)})
     }
-
-
-    function Jobs({jobs}){
-        const JOBS=jobs.map((job)=>{
-            return(
-                <div>
-                    <Accordion className="shadow p-3 mb-5 bg-white rounded acc">
-                    <Card>
-                        <Accordion.Toggle as={Card.Header} eventKey="0" className="crd">
-                            <div className="ll"> 
-                        <ListItem>
-                        <ListItemText primary={job.jobTitle} secondary={job.applicants.length+' applicants'} />
-                        </ListItem>
-                        <Button disabled={job.applicants.length==0} onClick={()=>{setApplicantsDetails(job.applicants)}} className="btn">
-                         Applicants
-                        </Button>
-                        </div>
-                        </Accordion.Toggle>
-                        <Accordion.Collapse eventKey="0">
-                        <Card.Body>
-                            <h6>Job details</h6>
-                            <p className='text-center'>{job.jobDescription}</p>
-                            <h6>Qualifications expected</h6>
-                            <p className='text-center'>{job.jobQualifications}</p>
-                            <h6>deadline</h6>
-                            <p className='text-center'>{moment(job.jobDeadline).format('DD/mm/yyyy')}</p>
-                        </Card.Body>
-                        </Accordion.Collapse>
-                    </Card>
-                </Accordion>
-                </div>
-        
-            );
-        })
-    
-        return (JOBS)
-        
-    }
-
 
     return(
         <>
         <div>
+            {isLoading ? <Loading/> : ''}        
             <UserHeader company={true} searchVal={searchVal} onChangeHandler={onChangeHandler}/>
+            <div className='d-md-none company-pvt' style={{paddingBottom:'0px'}}>
+                <input type="text" disabled={location.pathname.includes('Apply/') ? true : false} value={searchVal} onChange={(event)=>{
+                    onChangeHandler(event.target.value)
+                }} placeholder="Search job title, Company Name" className="search form-control" style={{height:'55px', marginRight:'20px'}}/>
+            </div>
             {!applicantsDetails ?
-                <>
-                    <div className="up one shadow p-3 mb-5 bg-white rounded">
+                <div className='company-pvt row' style={{margin:0}}>
+                    <div className="shadow company-pvt-interview p-3 mb-5 bg-white rounded">
                         <Interviews />
                     </div>
-                    <div className="up two mxln">                   
-                        <Jobs setApplicantsDetails={setApplicantsDetails} jobs={jobs.length ? jobs.filter((item)=> item.jobTitle.toLowerCase().includes(searchVal.toLowerCase()) || item.companyName.toLowerCase().includes(searchVal.toLowerCase())) : [] } />
+                    <div className="company-pvt-jobs">                   
+                        <Jobs setApplicantsDetails={setApplicantsDetails} mode='company' jobs={jobs.length ? jobs.filter((item)=> item.jobTitle.toLowerCase().includes(searchVal.toLowerCase()) || item.companyName.toLowerCase().includes(searchVal.toLowerCase())) : [] } />
                     </div>
-                </>
+                </div>
                 :
                     <div style={{width:'100%', padding:'0 40px'}} className="up mt-5">  
                         <Applicants setApplicantsDetails={setApplicantsDetails} applicants={applicantsDetails}/>

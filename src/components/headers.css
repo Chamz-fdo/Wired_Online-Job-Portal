@@ -1,21 +1,6 @@
-.search{
-    width: 500px;
-    margin-left: 400px;
-  
-}
-
-.nvb{
-    height: 100px;
-    background-color: #F8F8F8;
-}
-
 .nvbb{
     height: 130px;
 
-}
-
-.picon{
-    margin-top: 20px;
 }
 
 .inup{
@@ -75,11 +60,7 @@
     width: 400px;
 }
 
-.nvbjs{
-    height: 130px;
-    background-color: #F8F8F8;
 
-}
 
 .nvjs{
    margin-left: 880px; 
@@ -88,4 +69,21 @@
 h6{
     text-align: center;
 }
+
+.button{
+    height: 40px;
+}
+
+#jbbtn{
+    background-color: 102483;
+    border-color: white;
+}
+
+#jbbtn:hover{
+    background-color: white;
+    color: #102483;
+    border-color: #102483;
+
+}
+
 

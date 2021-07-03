@@ -5,9 +5,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import './userprofile.css';
 import { Link } from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
+
+import Jobs from './jobs'
 
 
 function UserProfile(props){
+
+    const location= useLocation();
 
     function Interviews(){
         return(
@@ -18,59 +23,26 @@ function UserProfile(props){
                     <Link to="/JoinMeeting"><Button className="jm">join meeting</Button></Link>
                 </ListItem>
                 <small className="form-text text-muted">You have no more upcoming Interviews</small>
-
             </div>
         );
     }
 
-    function Jobs(){
-        if(props.jobDetails){
-            const Data = props.jobDetails.map((item)=>{
-                return(
-                    <div key={item.jobId}>
-                        <Accordion className="shadow p-3 mb-5 bg-white rounded acc">
-                        <Card>
-                            <Accordion.Toggle as={Card.Header} eventKey="0" className="crd">
-                                <div className="ll"> 
-                            <ListItem>
-                            <ListItemText primary={item.jobTitle} secondary={item.companyName} />
-                            </ListItem>
-                            <Link to={"/Apply/" + item.jobId}><Button onClick={()=>props.selectedJob(item)} className="btn">Apply</Button></Link>
-                            </div>
-                            </Accordion.Toggle>
-                            <Accordion.Collapse eventKey="0">
-                            <Card.Body style={{textAlign:'left'}} className='text-left'>
-                                <h6 style={{textAlign:'left'}}>Job details</h6>
-                                <div>{item.jobDescription}</div>
-                                <h6 style={{textAlign:'left'}}>Qualifications expected</h6>
-                                <div>{item.jobQualifications}</div>
-                                <h6 style={{textAlign:'left'}}>Apply before</h6>
-                                <div>{moment(item.jobDeadline).format('DD/MM/YYYY')}</div>
-            
-                            </Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
-                    </Accordion>
-                    </div>
-            
-                );
-            })
-
-            return(Data)
-        }
-        else{return(null)}
-    }
-
-
     return(
-        <div className="abcd">
-            <div className="up one shadow p-3 mb-5 bg-white rounded">
+        <>
+        <div className='d-md-none company-pvt' style={{paddingBottom:'0px'}}>
+            <input type="text" disabled={location.pathname.includes('Apply/') ? true : false} value={props.searchVal} onChange={(event)=>{
+                props.onChangeHandler(event.target.value)
+            }} placeholder="Search job title, Company Name" className="search form-control" style={{height:'55px', marginRight:'20px'}}/>
+        </div>
+        <div className="company-pvt row" style={{margin:0}}>            
+            <div className="company-pvt-interview shadow p-3 mb-5 bg-white rounded">
             <Interviews />
             </div>
-            <div className="up two">
-            <Jobs />
+            <div className="company-pvt-jobs">
+                <Jobs selectedJob={props.selectedJob} jobs={props.jobDetails} mode='user' />
             </div>
         </div>
+        </>
     );
 }
 
