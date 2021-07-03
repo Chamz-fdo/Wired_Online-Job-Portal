@@ -69,8 +69,9 @@ const Applicants = (props) => {
       <div>
         <Button onClick={()=>{props.setApplicantsDetails()}} className="btn">Back</Button>
       </div>
+      <div style={{maxWidth:'100%', overflowX:'scroll'}}>
       <BootstrapTable keyField='id' data={ props.applicants } columns={ columns } />
-
+      </div>
       {resumeLink ?
         <Modal show={isModalOpen} onHide={()=>{handleModal(null)}} animation={true}>
           <Modal.Header closeButton>

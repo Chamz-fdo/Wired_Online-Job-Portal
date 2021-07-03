@@ -142,7 +142,7 @@ function CompanyPrivate(props){
                     </div>
                 </div>
                 :
-                    <div style={{width:'100%', padding:'0 40px'}} className="up mt-5">  
+                    <div style={{width:'100%', padding:'0 40px'}} className="up applicants-table mt-5">  
                         <Applicants setApplicantsDetails={setApplicantsDetails} applicants={applicantsDetails}/>
                     </div>
                 }

@@ -50,6 +50,9 @@ h2{margin-top: 30px;margin-bottom: 30px;}
 .company-pvt-interview{width: 39%; margin-right: 2%}
 .company-pvt-jobs{width: 59%}
 
+.apply-div{padding: 40px; margin: 0 !important}
+.apply-job-details{width: 40%; margin-right: 2%; }
+.apply-form{width: 58%}
 
 .absolute-center{
     position: absolute;
@@ -82,11 +85,11 @@ h2{margin-top: 30px;margin-bottom: 30px;}
     button{ font-size: .5em }
     .front-page-navbar{height: 80px;}   
     .frontpage-body img{max-width: 80% !important; margin-top: 18vh;}     
-    .btn {height: 30px !important; width: auto !important; font-size: 12px; padding: 5px 10px !important; margin: 5px !important}
+    .btn {height: auto !important; width: auto !important; font-size: 14px; padding: 5px 10px !important; margin: 5px !important; line-height: 2 !important}    
+    .search-jobs-single-user .btn {height: 40px !important;}
     .btn svg { font-size: 16px;margin-right: 5px}
     .navbar-expand .navbar-nav .dropdown-menu{left: -20px; font-size: 12px; min-width: auto; padding: 5px;margin-top: -3px !important}
     .navbar-expand .navbar-nav .dropdown-menu .dropdown-item{padding: 0px 10px }
-    
     .header-btn-grp .dropdown-menu {left: -45px !important}
 
     .navbar-custom .search{width: 100%; text-align: center; max-width: 700px; margin: 40px auto 20px}
@@ -104,10 +107,27 @@ h2{margin-top: 30px;margin-bottom: 30px;}
     .search-jobs-container{padding: 10px}
     .search-jobs-single{margin: auto; width: 100%; max-width: 700px; margin-top: 20px;}    
 
+    .search-jobs-single .job-topic, .search-jobs-single-user .job-topic span{font-size: 16px !important}
+    .search-jobs-single .top-details-topics, .search-jobs-single-user .top-details-topics{font-size: 16px;}
+    .search-jobs-single .top-details, .search-jobs-single-user .top-details{font-size: 14px}
+    .search-jobs-single .top-details-container, .search-jobs-single-user .top-details-container{padding: 20px !important;}
+
+
     .company-pvt{padding: 20px; margin-top: 20px;}    
     .company-pvt-interview{width: 100%; margin-top: 20px}
     .company-pvt-jobs{width: 100%}
 
+    .apply-div{padding: 20px;}
+    .apply-div h5{font-size: 16px !important}
+    .apply-div p{font-size: 14px !important}
+    .company-pvt h3 ,.apply-div h3{font-size: 20px !important}
+    .apply-job-details{width: 100%; margin-right: 0; }
+    .apply-form{width: 100%}
+
+    .applicants-table{padding: 20px !important; margin-top: 10px !important}
+
+    .hhh{width: auto !important;}
+    #logos{height: 60px;width: 60px}      
     .logo-part{text-align: center; width: auto !important; margin-top: -50px;}
     .logo-part img {width: auto !important; height: 190px !important; margin-left: 0 !important}
     .container{margin-left: 0px !important;}

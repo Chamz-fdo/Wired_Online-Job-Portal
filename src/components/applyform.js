@@ -77,7 +77,7 @@ function ApplyForm({id, setIsLoading}){
     return(
         <div>
             
-            <Form className="up four shadow p-3 mb-5 bg-white rounded" noValidate validated={validated} onSubmit={handleSubmit}>
+            <Form className="shadow p-3 mb-5 bg-white rounded" noValidate validated={validated} onSubmit={handleSubmit}>
             <h3>Apply for the Job</h3>
             <Form.Group controlId="formname">
                <Form.Label>Name with Initials</Form.Label>
@@ -153,11 +153,13 @@ function Apply(props){
       <div >
           {isLoading ? <Loading/> : ''}  
           <UserHeader/>
-          <div className="up five shadow p-3 mb-5 bg-white rounded">
+          <div className='row apply-div'>
+          <div className="apply-job-details shadow p-3 mb-5 bg-white rounded">
             <Post selectedJob={props.selectedJob}/>
           </div>
-          <div>
+          <div className='apply-form'>
             <ApplyForm setIsLoading={setIsLoading} id={props.id} />
+          </div>
           </div>
         </div>
     );
