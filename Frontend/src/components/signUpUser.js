@@ -1,12 +1,16 @@
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom'
-import './signupUser.css';
 import {Form,Button} from 'react-bootstrap';
+
+import {baseUrl} from './../baseUrl'
+import Loading from './Loading'
 
 function SignupUser(){
 
     const history = useHistory();
     const [validated, setValidated] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);    
+    const [isError, setIsError] = useState(false);    
 
     const handleSubmit = (event) => {
       
@@ -18,6 +22,7 @@ function SignupUser(){
         setValidated(true);
       }
       else{
+        setIsLoading(true)
         let userData = {};
         userData.email = form.email.value;
         userData.password = form.password.value;
@@ -26,7 +31,7 @@ function SignupUser(){
 
         let old = JSON.stringify(userData)
 
-        fetch('http://localhost:3001/users/',{
+        fetch(baseUrl +'users/',{
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: old
@@ -34,17 +39,27 @@ function SignupUser(){
           .then((data) => data.json())
           .then((data)=>{
               history.push('/signin')
+              setIsLoading(false)
             })
           .catch((Err)=> {
-            console.log(Err)
+            window.scrollTo(0,0)
             setValidated(true);
+            setIsLoading(false)
+            setIsError(true)            
           })
       }
   
     };
 
    return(
-       <Form className="abc shadow p-3 mb-5 bg-white rounded" noValidate validated={validated} onSubmit={handleSubmit}>
+        <>
+        {isError ? 
+          <div className='shadow signin-form-error bg-white rounded'>
+            Your Email is already Exists      
+          </div>
+        :''}
+       <Form className={isError ? "border-radius-0 shadow bg-white rounded signup-form" : "shadow bg-white rounded signup-form"} noValidate validated={validated} onSubmit={handleSubmit}>
+          {isLoading ? <Loading/> : ''}             
            <h2>Sign Up</h2>
            <Form.Group controlId="formfname">
                <Form.Label>First Name</Form.Label>
@@ -89,14 +104,14 @@ function SignupUser(){
                 </Form.Control.Feedback>
                 
             </Form.Group>
-
-            <Button type="submit" id="zxy">
+            <div className='signup-btn-grp'>            
+            <Button type="submit">
                 Sign Up
             </Button>
-
+            </div>
        </Form>
 
-
+       </>
    );
         
   

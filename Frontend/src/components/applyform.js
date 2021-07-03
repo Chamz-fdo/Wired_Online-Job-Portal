@@ -4,6 +4,8 @@ import './userprofile.css';
 import UserHeader from './userheader';
 import {useHistory, useLocation} from 'react-router-dom'
 
+import {baseUrl} from './../baseUrl'
+import Loading from './Loading'
 
 function Post({selectedJob}){
 
@@ -26,7 +28,7 @@ function Post({selectedJob}){
     );
 }
 
-function ApplyForm({id}){
+function ApplyForm({id, setIsLoading}){
     const [validated, setValidated] = useState(false);
     const [file, setFile] = useState();
     const history = useHistory();
@@ -40,6 +42,7 @@ function ApplyForm({id}){
         event.stopPropagation();
       }
       
+      setIsLoading(true)
       const applicant = {};
       
       applicant.name = data.name.value;
@@ -55,15 +58,19 @@ function ApplyForm({id}){
       let formD = new FormData()
       formD.append('job', newData)
       formD.append('file', file)
-      fetch(`http://localhost:3001/Wired/jobs/apply/${id}`, {
+      fetch(`${baseUrl}Wired/jobs/apply/${id}`, {
           method: 'POST',
           body: formD
       })
         .then((data)=>data.json())
         .then((data)=>{
           history.push('/userprofile')
+          setIsLoading(false)
         })
-        .catch((Err)=> {console.log(Err)})
+        .catch((Err)=> {
+          console.log(Err)
+          setIsLoading(false)
+        })
       setValidated(true);
     };
 
@@ -140,17 +147,18 @@ function ApplyForm({id}){
 
 function Apply(props){
 
-    console.log(props)
+    const [isLoading, setIsLoading] = useState(false);    
 
     return(
       <div >
+          {isLoading ? <Loading/> : ''}  
           <UserHeader/>
-    <div className="up five shadow p-3 mb-5 bg-white rounded">
-    <Post selectedJob={props.selectedJob}/>
-    </div>
-    <div>
-    <ApplyForm id={props.id} />
-    </div>
+          <div className="up five shadow p-3 mb-5 bg-white rounded">
+            <Post selectedJob={props.selectedJob}/>
+          </div>
+          <div>
+            <ApplyForm setIsLoading={setIsLoading} id={props.id} />
+          </div>
         </div>
     );
 }
