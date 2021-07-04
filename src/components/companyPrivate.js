@@ -78,6 +78,7 @@ function Interviews(){
 function CompanyPrivate(props){
 
     const [isLoading, setIsLoading] = useState(true);    
+    const [isFetched, setIsFetched] = useState(false);    
 
     const location = useLocation();
     const AuthContext = useContext(authContext)
@@ -87,8 +88,8 @@ function CompanyPrivate(props){
     const [applicantsDetails, setApplicantsDetails] = useState()
 
     useEffect(()=>{
-        if(!jobs.length){
-            setIsLoading(true)            
+        if(!jobs.length && !isFetched){
+            setIsLoading(true)   
             RefreshJobs()
         }
     })
@@ -117,9 +118,13 @@ function CompanyPrivate(props){
               .then((data)=>data.json())
               .then((data)=>{
                   setJobs(data)
-                  setIsLoading(false)                  
+                  setIsLoading(false) 
+                    setIsFetched(true)                                            
               })
-              .catch((err)=> {console.log(err)})
+              .catch((err)=> {
+                console.log(err)
+                  setIsLoading(false)                 
+            })
     }
 
     return(
