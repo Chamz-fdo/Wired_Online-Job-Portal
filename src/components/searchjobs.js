@@ -22,6 +22,7 @@ function Jobsearch(props){
                 .then((data)=>data.json())
                 .then((data)=>{
                     setJobDetails(data)
+                    props.setJobDetails(data)
                     setTimeout(()=>{
                         setIsLoading(false)                           
                     },1000)

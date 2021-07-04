@@ -87,12 +87,15 @@ function App() {
   //     }
   // })
 
-  React.useEffect(()=>{
-      fetch(baseUrl+ 'Wired/jobs/getAll')
-        .then((data)=>data.json())
-        .then((data)=>{setJobDetails(data)})              
-    
+  React.useEffect(()=>{                  
+    RefreshJobs()
   },[])
+
+  const RefreshJobs=()=>{
+    fetch(baseUrl+ 'Wired/jobs/getAll')
+        .then((data)=>data.json())
+        .then((data)=>{setJobDetails(data)})  
+  }
 
   const login =(tkn, no, name,email)=>{
     setToken(tkn)
@@ -130,7 +133,7 @@ function App() {
               <Route path="/userprofile">
                 <div>
                   <UserHeader searchVal={searchVal} onChangeHandler={onChangeHandler}/>
-                  <UserProfile searchVal={searchVal} onChangeHandler={onChangeHandler} selectedJob={setSelectedJobDetails} jobDetails={jobDetails.length ? jobDetails.filter((item)=> item.jobTitle.toLowerCase().includes(searchVal.toLowerCase()) || item.companyName.toLowerCase().includes(searchVal.toLowerCase())) : null }/>
+                  <UserProfile searchVal={searchVal} onChangeHandler={onChangeHandler} RefreshJobs={RefreshJobs} selectedJob={setSelectedJobDetails} jobDetails={jobDetails.length ? jobDetails.filter((item)=> item.jobTitle.toLowerCase().includes(searchVal.toLowerCase()) || item.companyName.toLowerCase().includes(searchVal.toLowerCase())) : null }/>
                   <div style={{clear:'both',position:"fix", bottom:"0px"}}>
                     <Footer/>
                   </div>
@@ -158,7 +161,7 @@ function App() {
             <Route path="/JoinMeeting" component={JoinMeeting} />
             <Route path="/Apply/:jobId" component={({match})=><Apply id={match.params.jobId} selectedJob={selectedJobDetails}/>}/>
             <Route path="/Jobsearch" >
-              <Jobsearch guest={false}/>
+              <Jobsearch setJobDetails={setJobDetails} guest={false}/>
               <Footer/>              
             </Route>  
             <Route path='/aboutus' component={Aboutus} />             
@@ -187,7 +190,7 @@ function App() {
             <Route path="/Plans" component={Plans} />
             <Route path="/PaymentDetails" component={PaymentDetails} /> 
             <Route path="/Jobsearch">  
-              <Jobsearch guest={true} />
+              <Jobsearch guest={true} setJobDetails={setJobDetails} />
               <Footer/>
             </Route>
             <Route path='/aboutus' component={Aboutus} />             

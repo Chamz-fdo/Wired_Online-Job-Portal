@@ -14,6 +14,10 @@ function UserProfile(props){
 
     const location= useLocation();
 
+    React.useEffect(()=>{
+        props.RefreshJobs()
+    },[])
+
     function Interviews(){
         return(
             <div>
